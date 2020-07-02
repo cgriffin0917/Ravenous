@@ -1,5 +1,6 @@
 import React from 'react';
 import './SearchBar.css';
+import Testing from '../App/Testing';
 
 const sortByOptions = {
   'Best Match': 'best_match',
@@ -29,9 +30,9 @@ class SearchBar extends React.Component {
           </div>
           <div className="SearchBar-fields">
             <input placeholder="Search Businesses" />
-            <input placeholder="Where?" />
+            <input placeholder="Where City & State?" />
           </div>
-          <div className="SearchBar-submit">
+          <div className="SearchBar-submit" onClick={this.handleChangeMyname}>
             <a>Push me baby!</a>
           </div>
         </div>
