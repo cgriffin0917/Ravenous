@@ -1,32 +1,39 @@
-import React from 'react';
-import './SearchBar.css';
+  import React from 'react';
+  import './SearchBar.css';
 
-  /* Yelp API info that I used is here
-  https://www.yelp.com/developers/documentation/v3/business_search
-  */
+  const sortByOptions = {
+    'Best Match': 'best_match',
+    'Highest Rated': 'rating',
+    'Most Reviewed': 'most_count',
+  };
 
-class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: '',
-      location: '',
-      sortBy: 'best_match',
+  class SearchBar extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        term: '',
+        location: '',
+        sortBy: 'best_match',
+        }
+      }
+
+    getSortByClass(sortByClass) {
+      if (this.sortByOption === this.state.sortBy) {
+        return 'active'
+      }
+      return ''
     }
-    this.sortByOptions = {
-      'Best Match': 'best_match',
-      'Highest Rated': 'rating',
-      'Most Reviewed': 'most_count',
-    };
 
+    handleSortByChange(sortByOption) {
+      this.setState({sortBy: sortByOption})
     }
 
-  renderSortByOptions() {
-    return Object.keys(this.sortByOptions).map(sortByOption => {
-        let sortByOptionValue = this.sortByOptions[sortByOption];
-        return <li key={sortByOptionValue}>{sortByOption}</li>;
-    });
-  }
+    renderSortByOptions() {
+      return Object.keys(sortByOptions).map(sortByOption => {
+          let sortByOptionValue = sortByOptions[sortByOption];
+          return <li onClick={this.handleSortByChange.bind(this,sortByOptionValue)}classname={this.getSortByClass(sortByOptionValue)} key={sortByOptionValue}>{sortByOption}</li>;
+      });
+    }
 
     render() {
       return (
