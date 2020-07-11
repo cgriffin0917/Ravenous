@@ -1,21 +1,29 @@
 import React from 'react';
 import './SearchBar.css';
-import Testing from '../App/Testing';
 
-const sortByOptions = {
-  'Best Match': 'best_match',
-  'Highest Rated': 'rating',
-  'Most Reviewed': 'most_count',
-};
   /* Yelp API info that I used is here
   https://www.yelp.com/developers/documentation/v3/business_search
   */
 
 class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      term: '',
+      location: '',
+      sortBy: 'best_match',
+    }
+    this.sortByOptions = {
+      'Best Match': 'best_match',
+      'Highest Rated': 'rating',
+      'Most Reviewed': 'most_count',
+    };
+
+    }
 
   renderSortByOptions() {
-    return Object.keys(sortByOptions).map(sortByOption => {
-        let sortByOptionValue = sortByOptions[sortByOption];
+    return Object.keys(this.sortByOptions).map(sortByOption => {
+        let sortByOptionValue = this.sortByOptions[sortByOption];
         return <li key={sortByOptionValue}>{sortByOption}</li>;
     });
   }
