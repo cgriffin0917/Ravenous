@@ -14,11 +14,15 @@
         term: '',
         location: '',
         sortBy: 'best_match',
-        }
+      };
+
+      this.handleTermChange = this.handleTermChange.bind(this);
+      this.handleLocationChange = this.handleLocationChange.bind(this);
+      this.handleSearch = this.handleSearch.bind(this);
       }
 
-    getSortByClass(sortByClass) {
-      if (this.sortByOption === this.state.sortBy) {
+    getSortByClass(sortByOption) {
+      if (sortByOption === this.state.sortBy) {
         return 'active'
       }
       return ''
@@ -28,10 +32,23 @@
       this.setState({sortBy: sortByOption})
     }
 
+    handleTermChange(event) {
+      this.setState({term: event.target.value})
+    }
+
+    handleLocationChange(event) {
+      this.setState({location: event.target.value})
+    }
+
+    handleSearch(event) {
+      this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+      event.preventDefault();
+    }
+
     renderSortByOptions() {
       return Object.keys(sortByOptions).map(sortByOption => {
           let sortByOptionValue = sortByOptions[sortByOption];
-          return <li onClick={this.handleSortByChange.bind(this,sortByOptionValue)}classname={this.getSortByClass(sortByOptionValue)} key={sortByOptionValue}>{sortByOption}</li>;
+          return <li key={sortByOptionValue} onClick={this.handleSortByChange.bind(this,sortByOptionValue)} className={this.getSortByClass(sortByOptionValue)}>{sortByOption}</li>;
       });
     }
 
@@ -44,11 +61,11 @@
             </ul>
           </div>
           <div className="SearchBar-fields">
-            <input placeholder="Search Businesses" />
-            <input placeholder="Where City & State?" />
+            <input onChange={this.handleTermChange} placeholder="Search Businesses" />
+            <input onChange={this.handleLocationChange} placeholder="Where City & State?" />
           </div>
-          <div className="SearchBar-submit" onClick={this.handleChangeMyname}>
-            <a>Push me baby!</a>
+          <div className="SearchBar-submit">
+            <a onClick={this.handleSearch}>Push me baby!</a>
           </div>
         </div>
       )
